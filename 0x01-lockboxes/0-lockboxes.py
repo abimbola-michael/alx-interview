@@ -7,7 +7,8 @@ def canUnlockAll(boxes):
     if len(boxes) == 0:
         return False
     keys = [0]
-    keys.extend(list(set(boxes[0])))
+    keys.extend(boxes[0])
+    keys = list(set(keys))
 
     index = 1
     while index < len(keys):
