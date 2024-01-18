@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 # In a text file, there is a single character H.
 # Your text editor can execute only two operations
 # in this file: Copy All and Paste. Given a number n, write a
