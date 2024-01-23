@@ -33,12 +33,12 @@ def main():
                 status_code = words[-2]
             except (IndexError, ValueError):
                 continue
-            
+
             total_size += file_size
             if status_code in status_codes.keys():
                 status_codes[status_code] += 1
             line_count += 1
-            
+
             if line_count % 10 == 0:
                 print_stats(status_codes, total_size)
     except KeyboardInterrupt:
