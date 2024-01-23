@@ -27,6 +27,8 @@ def main():
             line = line.strip()
             try:
                 words = line.split()
+                if len(words) < 5:
+                    continue
                 file_size = int(words[-1])
                 status_code = words[-2]
                 total_size += file_size
@@ -38,7 +40,7 @@ def main():
                     print_stats(status_codes, total_size)
 
             except (IndexError, ValueError):
-                pass
+                continue
     except KeyboardInterrupt:
         print_stats(status_codes, total_size)
 
