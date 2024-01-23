@@ -26,21 +26,21 @@ def main():
         for line in sys.stdin:
             line = line.strip()
             try:
-                words = line.split()
+                words = line.split(" ")
                 if len(words) < 5:
                     continue
                 file_size = int(words[-1])
                 status_code = words[-2]
-                total_size += file_size
-                if status_code in status_codes.keys():
-                    status_codes[status_code] += 1
-                line_count += 1
-
-                if line_count % 10 == 0:
-                    print_stats(status_codes, total_size)
-
             except (IndexError, ValueError):
                 continue
+            
+            total_size += file_size
+            if status_code in status_codes.keys():
+                status_codes[status_code] += 1
+            line_count += 1
+            
+            if line_count % 10 == 0:
+                print_stats(status_codes, total_size)
     except KeyboardInterrupt:
         print_stats(status_codes, total_size)
 
