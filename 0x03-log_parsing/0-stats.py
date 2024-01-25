@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 Write a script that reads stdin line by line and computes metrics:"""
 
@@ -9,7 +9,7 @@ def print_stats(status_codes, file_size):
     """Prints the stats"""
     print("File size: {}".format(file_size))
     for key, value in sorted(status_codes.items()):
-        if value:
+        if value != 0:
             print("{}: {}".format(key, value))
 
 
@@ -24,20 +24,14 @@ def main():
 
     try:
         for line in sys.stdin:
-            line = line.strip()
-            try:
-                words = line.split(" ")
-                if len(words) < 5:
-                    continue
+            words = line.strip().split(" ")
+            if len(words) > 4:
                 file_size = int(words[-1])
                 status_code = words[-2]
-            except (IndexError, ValueError):
-                continue
-            
-            total_size += file_size
-            if status_code in status_codes.keys():
-                status_codes[status_code] += 1
-            line_count += 1
+                if status_code in status_codes.keys():
+                    status_codes[status_code] += 1
+                total_size += file_size
+                line_count += 1
             
             if line_count % 10 == 0:
                 print_stats(status_codes, total_size)
