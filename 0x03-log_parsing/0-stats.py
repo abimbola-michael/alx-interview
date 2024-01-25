@@ -32,7 +32,7 @@ def main():
                     status_codes[status_code] += 1
                 total_size += file_size
                 line_count += 1
-            
+
             if line_count % 10 == 0:
                 print_stats(status_codes, total_size)
     except KeyboardInterrupt:
