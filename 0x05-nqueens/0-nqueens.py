@@ -19,13 +19,13 @@ def is_safe(board, row, col, n):
 
 def solveNQUtil(board, col, n):
     """Utility function to solve N Queen problem"""
+    list = []
     if col == n:
-        l = []
         for i in range(n):
             for j in range(n):
                 if board[i][j] == 1:
-                    l.append([i, j])
-        print(l)
+                    list.append([i, j])
+        print(list)
         return
     for i in range(n):
         if is_safe(board, i, col, n):
