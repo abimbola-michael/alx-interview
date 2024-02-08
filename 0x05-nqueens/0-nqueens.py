@@ -1,37 +1,34 @@
 #!/usr/bin/python3
-"""N queens"""
+"""
+The N queens puzzle is the challenge of placing
+N non-attacking queens on an N×N chessboard.
+Write a program that solves the N queens problem.
+"""
 import sys
 
 
-def is_safe(board, row, col, n):
-    """Check if a queen can be placed on board[row][col]"""
-    for i in range(col):
-        if board[row][i] == 1:
-            return False
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
-    for i, j in zip(range(row, n, 1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
-    return True
+def generate_solutions(row, column):
+    solution = [[]]
+    for queen in range(row):
+        solution = place_queen(queen, column, solution)
+    return solution
 
 
-def solveNQUtil(board, col, n):
-    """Utility function to solve N Queen problem"""
-    list = []
-    if col == n:
-        for i in range(n):
-            for j in range(n):
-                if board[i][j] == 1:
-                    list.append([i, j])
-        print(list)
-        return
-    for i in range(n):
-        if is_safe(board, i, col, n):
-            board[i][col] = 1
-            solveNQUtil(board, col + 1, n)
-            board[i][col] = 0
+def place_queen(queen, column, prev_solution):
+    safe_position = []
+    for array in prev_solution:
+        for x in range(column):
+            if is_safe(queen, x, array):
+                safe_position.append(array + [x])
+    return safe_position
+
+
+def is_safe(q, x, array):
+    if x in array:
+        return (False)
+    else:
+        return all(abs(array[column] - x) != q - column
+                   for column in range(q))
 
 
 def init():
@@ -49,13 +46,16 @@ def init():
     return (n)
 
 
-def nqueens():
-    """N queens problem"""
+def n_queens():
 
     n = init()
-    board = [[0 for j in range(n)] for i in range(n)]
-    solveNQUtil(board, 0, n)
+    solutions = generate_solutions(n, n)
+    for array in solutions:
+        clean = []
+        for q, x in enumerate(array):
+            clean.append([q, x])
+        print(clean)
 
 
-if __name__ == "__main__":
-    nqueens()
+if __name__ == '__main__':
+    n_queens()
